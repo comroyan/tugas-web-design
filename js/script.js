@@ -29,6 +29,8 @@ const pageDashboard = document.getElementById('pageDashboard');
 const pageInventory = document.getElementById('pageInventory');
 const pageAdd = document.getElementById('pageAdd');
 const pageReport = document.getElementById('pageReport');
+const pageAbout = document.getElementById('pageAbout');
+const elBtnAboutToInventory = document.getElementById('btnAboutToInventory');
 
 // Navigasi & Drawer
 const elBtnHamburgerMenu = document.getElementById('btnHamburgerMenu');
@@ -128,6 +130,7 @@ function navigasiHalaman(target) {
   pageInventory.classList.remove('active');
   pageAdd.classList.remove('active');
   pageReport.classList.remove('active');
+  if (pageAbout) pageAbout.classList.remove('active');
 
   // Tampilkan halaman target
   if (target === 'dashboard') {
@@ -143,6 +146,8 @@ function navigasiHalaman(target) {
   } else if (target === 'report') {
     pageReport.classList.add('active');
     renderReportPage();
+  } else if (target === 'about') {
+    if (pageAbout) pageAbout.classList.add('active');
   }
 
   // Update status tombol navigasi aktif di Desktop
@@ -757,6 +762,7 @@ function inisialisasiEvent() {
   // Tombol Tambah di Halaman Data Inventaris
   if (elInventoryTambah) elInventoryTambah.addEventListener('click', () => navigasiHalaman('add'));
   if (elBtnBatalHalamanTambah) elBtnBatalHalamanTambah.addEventListener('click', () => navigasiHalaman('inventory'));
+  if (elBtnAboutToInventory) elBtnAboutToInventory.addEventListener('click', () => navigasiHalaman('inventory'));
 
   // Submit Form Tambah Halaman Dedicated
   if (elFormPagePerangkat) elFormPagePerangkat.addEventListener('submit', simpanFormPage);

@@ -1,6 +1,6 @@
 {
-  "name": "Inventaris Perangkat Laboratorium TKJ",
-  "description": "Website inventaris perangkat laboratorium TKJ untuk proyek akhir kelas XII berbasis HTML, CSS, dan Vanilla JavaScript.",
+  "name": "Inventaris Lab TKJ - SMKN 2 Pekalongan",
+  "description": "Website inventaris perangkat laboratorium TKJ SMKN 2 Pekalongan. Proyek Akhir Web Design oleh Muhamad Zainurroyan (12 TKJ 1 / 19), Guru Pengampu: Pak Andi Darmayanto.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Website Inventaris Perangkat Laboratorium TKJ</title>
-    <meta name="description" content="Sistem Inventaris Perangkat Laboratorium Teknik Komputer dan Jaringan - Proyek Akhir Kelas XII TKJ." />
-    <meta property="og:title" content="Inventaris Perangkat Laboratorium TKJ" />
-    <meta property="og:description" content="Sistem pengelolaan perangkat praktik kejuruan laboratorium TKJ." />
+    <title>Inventaris Lab TKJ - SMKN 2 Pekalongan</title>
+    <meta name="description" content="Website inventaris perangkat laboratorium TKJ SMKN 2 Pekalongan. Proyek Akhir Web Design oleh Muhamad Zainurroyan (12 TKJ 1 / 19), Guru Pengampu: Pak Andi Darmayanto." />
+    <meta property="og:title" content="Inventaris Lab TKJ - SMKN 2 Pekalongan" />
+    <meta property="og:description" content="Website inventaris perangkat laboratorium TKJ SMKN 2 Pekalongan. Proyek Akhir Web Design oleh Muhamad Zainurroyan (12 TKJ 1 / 19), Guru Pengampu: Pak Andi Darmayanto." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="stylesheet" href="/css/style.css" />
@@ -28,8 +28,8 @@
             </svg>
           </div>
           <div>
-            <h2 class="drawer-title">Menu Lab TKJ</h2>
-            <span class="drawer-subtitle">Inventaris & Jaringan</span>
+            <h2 class="drawer-title">SMKN 2 Pekalongan</h2>
+            <span class="drawer-subtitle">Laboratorium Komputer & Jaringan</span>
           </div>
         </div>
         <button type="button" class="btn-close-drawer" id="btnCloseDrawer" aria-label="Tutup Menu">
@@ -93,13 +93,26 @@
               </span>
             </button>
           </li>
+          <li>
+            <button type="button" class="drawer-item-btn" data-nav="about">
+              <span class="drawer-item-left">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 16v-4"/>
+                  <path d="M12 8h.01"/>
+                </svg>
+                <span>Tentang & Profil Siswa</span>
+              </span>
+            </button>
+          </li>
         </ul>
 
         <div class="drawer-info-card">
-          <div class="drawer-info-title">Laboratorium TKJ</div>
+          <div class="drawer-info-title">SMKN 2 Pekalongan</div>
           <p class="drawer-info-desc">
-            SMK Jurusan Teknik Komputer & Jaringan.<br>
-            Sistem Inventaris Perangkat Praktik.
+            Proyek Web Design • Kelas 12 TKJ 1<br>
+            Dibuat oleh: <strong>Muhamad Zainurroyan</strong> (19)<br>
+            Guru Pengampu: <strong>Pak Andi Darmayanto</strong>
           </p>
         </div>
       </div>
@@ -126,7 +139,7 @@
           </div>
 
           <div class="brand-text">
-            <span class="brand-tag">SMK Jurusan TKJ</span>
+            <span class="brand-tag">SMKN 2 PEKALONGAN • TKJ</span>
             <h1 class="brand-title">Inventaris Lab TKJ</h1>
           </div>
         </div>
@@ -145,6 +158,9 @@
           </button>
           <button type="button" class="nav-link" data-nav="report">
             Laporan
+          </button>
+          <button type="button" class="nav-link" data-nav="about">
+            Tentang Siswa
           </button>
         </nav>
       </div>
@@ -538,6 +554,85 @@
     </section>
 
     <!-- =================================================================== -->
+    <!-- HALAMAN 5: TENTANG PROYEK (IDENTITAS SISWA & GURU PENGAMPU) -->
+    <!-- =================================================================== -->
+    <section class="page-view" id="pageAbout">
+      <div class="container" style="max-width: 800px;">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Tentang Proyek</h2>
+            <p class="page-desc">Informasi pengembang dan guru pengampu</p>
+          </div>
+          <button type="button" class="btn btn-secondary" id="btnAboutToInventory">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="8" x="2" y="2" rx="2" ry="2"/>
+              <rect width="20" height="8" x="2" y="14" rx="2" ry="2"/>
+              <line x1="6" x2="6.01" y1="6" y2="6"/>
+              <line x1="6" x2="6.01" y1="18" y2="18"/>
+            </svg>
+            Buka Data Perangkat
+          </button>
+        </div>
+
+        <!-- Grid Informasi Hanya Siswa & Guru Pengampu -->
+        <div class="about-grid">
+
+          <!-- KARTU 1: SISWA -->
+          <div class="about-card profile-card-highlight">
+            <div class="profile-header">
+              <div class="profile-avatar" aria-hidden="true">MZ</div>
+              <div>
+                <span class="profile-role-badge">Siswa</span>
+                <h3 class="profile-name">Muhamad Zainurroyan</h3>
+                <span class="profile-sub">12 TKJ 1 • Absen 19</span>
+              </div>
+            </div>
+
+            <div class="about-card-body">
+              <div class="profile-meta-list">
+                <div class="profile-meta-item">
+                  <span class="meta-label">Nama</span>
+                  <span class="meta-value"><strong>Muhamad Zainurroyan</strong></span>
+                </div>
+                <div class="profile-meta-item">
+                  <span class="meta-label">Kelas</span>
+                  <span class="meta-value"><strong>12 TKJ 1</strong></span>
+                </div>
+                <div class="profile-meta-item">
+                  <span class="meta-label">No. Absen</span>
+                  <span class="meta-value"><strong>19</strong></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- KARTU 2: GURU PENGAMPU -->
+          <div class="about-card">
+            <div class="profile-header">
+              <div class="profile-avatar guru-avatar" aria-hidden="true">AD</div>
+              <div>
+                <span class="profile-role-badge guru-badge">Guru</span>
+                <h3 class="profile-name">Pak Andi Darmayanto</h3>
+                <span class="profile-sub">Guru Web Design</span>
+              </div>
+            </div>
+
+            <div class="about-card-body">
+              <div class="profile-meta-list">
+                <div class="profile-meta-item">
+                  <span class="meta-label">Guru Pengampu</span>
+                  <span class="meta-value"><strong>Pak Andi Darmayanto</strong></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
     <!-- MODAL EDIT PERANGKAT (UNTUK EDIT DATA YANG ADA) -->
     <!-- =================================================================== -->
     <div class="modal-overlay" id="modalEdit" role="dialog" aria-modal="true" aria-labelledby="modalEditJudul">
@@ -677,14 +772,23 @@
           </svg>
           <span>Laporan</span>
         </button>
+
+        <button type="button" class="bottom-nav-btn" data-nav="about">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 16v-4"/>
+            <path d="M12 8h.01"/>
+          </svg>
+          <span>Profil</span>
+        </button>
       </div>
     </nav>
 
-    <!-- FOOTER RESMI -->
+    <!-- FOOTER RESMI DENGAN IDENTITAS SISWA & SEKOLAH -->
     <footer class="site-footer">
       <div class="container footer-inner">
         <div>
-          <span>&copy; Proyek Akhir Praktik Kejuruan XII TKJ • Vanilla JavaScript, HTML5 & CSS3</span>
+          <span>&copy; 2026 <strong>SMKN 2 PEKALONGAN</strong> • Dibuat oleh <strong>Muhamad Zainurroyan</strong> (12 TKJ 1 / Absen 19) • Guru Pengampu: <strong>Pak Andi Darmayanto</strong></span>
         </div>
         <div>
           <button type="button" class="btn-link" id="btnResetData" title="Kembalikan data ke awal file JSON">
