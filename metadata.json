@@ -1,0 +1,6 @@
+{
+  "name": "Inventaris Perangkat Laboratorium TKJ",
+  "description": "Website inventaris perangkat laboratorium TKJ untuk proyek akhir kelas XII berbasis HTML, CSS, dan Vanilla JavaScript.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

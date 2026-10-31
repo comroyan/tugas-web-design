@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Website Inventaris Perangkat Laboratorium TKJ</title>
+    <meta name="description" content="Sistem Inventaris Perangkat Laboratorium Teknik Komputer dan Jaringan - Proyek Akhir Kelas XII TKJ." />
+    <meta property="og:title" content="Inventaris Perangkat Laboratorium TKJ" />
+    <meta property="og:description" content="Sistem pengelolaan perangkat praktik kejuruan laboratorium TKJ." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+
+    <!-- SIDEBAR DRAWER (NAVBAR GARIS TIGA / OFF-CANVAS) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="sidebar-drawer" id="sidebarDrawer" aria-label="Menu Navigasi Laboratorium TKJ">
+      <div class="drawer-header">
+        <div class="drawer-brand">
+          <div class="brand-icon" style="width: 2rem; height: 2rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="8" x="2" y="2" rx="2" ry="2"/>
+              <rect width="20" height="8" x="2" y="14" rx="2" ry="2"/>
+              <line x1="6" x2="6.01" y1="6" y2="6"/>
+              <line x1="6" x2="6.01" y1="18" y2="18"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="drawer-title">Menu Lab TKJ</h2>
+            <span class="drawer-subtitle">Inventaris & Jaringan</span>
+          </div>
+        </div>
+        <button type="button" class="btn-close-drawer" id="btnCloseDrawer" aria-label="Tutup Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="drawer-body">
+        <ul class="drawer-menu-list">
+          <li>
+            <button type="button" class="drawer-item-btn active" data-nav="dashboard">
+              <span class="drawer-item-left">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                  <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                <span>Beranda (Dashboard)</span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="drawer-item-btn" data-nav="inventory">
+              <span class="drawer-item-left">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="8" x="2" y="2" rx="2" ry="2"/>
+                  <rect width="20" height="8" x="2" y="14" rx="2" ry="2"/>
+                  <line x1="6" x2="6.01" y1="6" y2="6"/>
+                  <line x1="6" x2="6.01" y1="18" y2="18"/>
+                </svg>
+                <span>Data Inventaris</span>
+              </span>
+              <span class="drawer-badge" id="drawerBadgeTotal">0</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="drawer-item-btn" data-nav="add">
+              <span class="drawer-item-left">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="12" x2="12" y1="8" y2="16"/>
+                  <line x1="8" x2="16" y1="12" y2="12"/>
+                </svg>
+                <span>Tambah Perangkat</span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="drawer-item-btn" data-nav="report">
+              <span class="drawer-item-left">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="16" x2="8" y1="13" y2="13"/>
+                  <line x1="16" x2="8" y1="17" y2="17"/>
+                  <polyline points="10 9 9 9 8 9"/>
+                </svg>
+                <span>Laporan & Ekspor</span>
+              </span>
+            </button>
+          </li>
+        </ul>
+
+        <div class="drawer-info-card">
+          <div class="drawer-info-title">Laboratorium TKJ</div>
+          <p class="drawer-info-desc">
+            SMK Jurusan Teknik Komputer & Jaringan.<br>
+            Sistem Inventaris Perangkat Praktik.
+          </p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- HEADER UTAMA (TOP NAVBAR DENGAN GARIS TIGA) -->
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand-section">
+          <!-- Tombol Garis Tiga (Hamburger Menu) -->
+          <button type="button" class="btn-hamburger" id="btnHamburgerMenu" aria-label="Buka Menu" title="Buka Menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
+
+          <div class="brand-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="8" x="2" y="2" rx="2" ry="2"/>
+              <rect width="20" height="8" x="2" y="14" rx="2" ry="2"/>
+              <line x1="6" x2="6.01" y1="6" y2="6"/>
+              <line x1="6" x2="6.01" y1="18" y2="18"/>
+            </svg>
+          </div>
+
+          <div class="brand-text">
+            <span class="brand-tag">SMK Jurusan TKJ</span>
+            <h1 class="brand-title">Inventaris Lab TKJ</h1>
+          </div>
+        </div>
+
+        <!-- Menu Link Desktop -->
+        <nav class="desktop-nav" aria-label="Navigasi Utama">
+          <button type="button" class="nav-link active" data-nav="dashboard">
+            Beranda
+          </button>
+          <button type="button" class="nav-link" data-nav="inventory">
+            Data Perangkat
+            <span class="nav-link-badge" id="navBadgeTotal">0</span>
+          </button>
+          <button type="button" class="nav-link" data-nav="add">
+            + Tambah
+          </button>
+          <button type="button" class="nav-link" data-nav="report">
+            Laporan
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- =================================================================== -->
+    <!-- HALAMAN 1: BERANDA / DASHBOARD RINGKAS (CLEAN & TIDAK RUMIT) -->
+    <!-- =================================================================== -->
+    <section class="page-view active" id="pageDashboard">
+      <div class="container">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Beranda Laboratorium</h2>
+            <p class="page-desc">Ringkasan status perangkat dan kesiapan fasilitas praktik TKJ</p>
+          </div>
+          <button type="button" class="btn btn-primary" id="btnDashToTambah">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"/>
+              <path d="M12 5v14"/>
+            </svg>
+            Tambah Perangkat
+          </button>
+        </div>
+
+        <!-- Banner Kesiapan Lab -->
+        <div class="kesiapan-banner">
+          <div class="kesiapan-header">
+            <span class="kesiapan-title">Tingkat Kesiapan Alat Praktik</span>
+            <span class="kesiapan-percent" id="dashPersenKesiapan">0%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-bar-fill" id="dashProgressBar" style="width: 0%;"></div>
+          </div>
+          <p class="kesiapan-note" id="dashKesiapanNote">Perangkat dalam kondisi baik dan siap digunakan praktikum siswa.</p>
+        </div>
+
+        <!-- Grid 4 Kartu Statistik -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-label">Total Jenis</div>
+            <div class="stat-card-value" id="statTotalPerangkat">0</div>
+            <div class="stat-card-sub">Item terdaftar</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-label">Total Unit Fisik</div>
+            <div class="stat-card-value" id="statTotalUnit">0</div>
+            <div class="stat-card-sub">Kuantitas di lab</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-label">Kondisi Baik</div>
+            <div class="stat-card-value" id="statKondisiBaik">0</div>
+            <div class="stat-card-sub">Siap digunakan</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-label">Kondisi Rusak</div>
+            <div class="stat-card-value" id="statKondisiRusak">0</div>
+            <div class="stat-card-sub">Perlu perbaikan</div>
+          </div>
+        </div>
+
+        <!-- Bagian Bawah Dashboard: Kategori & Aksi Cepat -->
+        <div class="dashboard-sections-grid">
+          <!-- Distribusi Perangkat per Kategori -->
+          <div class="dashboard-card">
+            <h3 class="dashboard-card-title">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="8" x="2" y="2" rx="2" ry="2"/>
+                <rect width="20" height="8" x="2" y="14" rx="2" ry="2"/>
+                <line x1="6" x2="6.01" y1="6" y2="6"/>
+                <line x1="6" x2="6.01" y1="18" y2="18"/>
+              </svg>
+              Distribusi Kategori
+            </h3>
+            <div class="category-list">
+              <div class="category-row">
+                <span class="category-name">Komputer Lab</span>
+                <span class="category-count" id="dashCountKomputer">0 Unit</span>
+              </div>
+              <div class="category-row">
+                <span class="category-name">Router Jaringan</span>
+                <span class="category-count" id="dashCountRouter">0 Unit</span>
+              </div>
+              <div class="category-row">
+                <span class="category-name">Switch & Hub</span>
+                <span class="category-count" id="dashCountSwitch">0 Unit</span>
+              </div>
+              <div class="category-row">
+                <span class="category-name">Access Point Wi-Fi</span>
+                <span class="category-count" id="dashCountAP">0 Unit</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pintasan Aksi & Perhatian -->
+          <div class="dashboard-card">
+            <h3 class="dashboard-card-title">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              Navigasi Cepat
+            </h3>
+            <div class="quick-action-list">
+              <button type="button" class="btn btn-secondary" style="width: 100%; justify-content: flex-start;" id="btnDashToInventory">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 3h18v18H3z"/>
+                  <path d="M3 9h18"/>
+                  <path d="M3 15h18"/>
+                  <path d="M9 3v18"/>
+                </svg>
+                Buka Tabel Lengkap Inventaris
+              </button>
+
+              <button type="button" class="btn btn-secondary" style="width: 100%; justify-content: flex-start;" id="btnDashToReport">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                </svg>
+                Lihat Laporan & Cetak Rekap
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- HALAMAN 2: DATA INVENTARIS (TABEL & SEARCH BERSIH TANPA KARTU BESAR) -->
+    <!-- =================================================================== -->
+    <section class="page-view" id="pageInventory">
+      <div class="container">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Data Inventaris Perangkat</h2>
+            <p class="page-desc">Kelola seluruh perangkat laboratorium, pencarian, dan status kondisi</p>
+          </div>
+          <button type="button" class="btn btn-primary" id="btnInventoryTambah">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"/>
+              <path d="M12 5v14"/>
+            </svg>
+            Tambah Perangkat
+          </button>
+        </div>
+
+        <!-- Filter & Search Card -->
+        <div class="controls-card">
+          <div class="search-filter-group">
+            <div class="search-box">
+              <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.3-4.3"/>
+              </svg>
+              <input
+                type="text"
+                id="inputCari"
+                class="search-input"
+                placeholder="Cari nama perangkat..."
+                aria-label="Cari nama perangkat"
+              />
+              <button type="button" class="btn-clear-search" id="btnClearSearch" aria-label="Bersihkan pencarian">✕</button>
+            </div>
+
+            <select id="filterKategori" class="filter-select" aria-label="Filter kategori">
+              <option value="Semua">Semua Kategori</option>
+              <option value="Komputer">Komputer</option>
+              <option value="Router">Router</option>
+              <option value="Switch">Switch</option>
+              <option value="Access Point">Access Point</option>
+            </select>
+
+            <select id="filterKondisi" class="filter-select" aria-label="Filter kondisi">
+              <option value="Semua">Semua Kondisi</option>
+              <option value="Baik">Kondisi: Baik</option>
+              <option value="Rusak">Kondisi: Rusak</option>
+            </select>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <!-- View Switcher -->
+            <div class="view-toggle-group">
+              <button type="button" class="view-btn active" id="btnViewTable" title="Tampilan Tabel">
+                Tabel
+              </button>
+              <button type="button" class="view-btn" id="btnViewGrid" title="Tampilan Kartu">
+                Kartu
+              </button>
+            </div>
+
+            <button type="button" class="btn btn-secondary btn-sm" id="btnResetFilter" title="Reset filter">
+              Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- Meta Bar -->
+        <div class="section-meta-bar">
+          <span id="badgeTotalItem">Memuat data...</span>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Geser tabel jika kolom terpotong di HP</span>
+        </div>
+
+        <!-- Empty & Loading States -->
+        <div id="stateLoading" class="state-container" style="display: none;">
+          <div class="state-title">Memuat data inventaris...</div>
+          <div class="state-desc">Mengambil data dari penyimpanan lokal atau perangkat.json</div>
+        </div>
+
+        <div id="stateKosong" class="state-container" style="display: none;">
+          <svg class="state-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+          </svg>
+          <div class="state-title" id="statePesanKosong">Tidak ada perangkat yang sesuai.</div>
+          <p class="state-desc">Coba sesuaikan kata kunci pencarian Anda atau reset pilihan filter.</p>
+        </div>
+
+        <!-- VIEW 1: TABEL INVENTARIS -->
+        <div class="table-wrapper" id="tabelContainer">
+          <table class="inventory-table">
+            <thead>
+              <tr>
+                <th class="col-id">ID</th>
+                <th class="col-nama">Nama Perangkat</th>
+                <th class="col-kategori">Kategori</th>
+                <th class="col-merek">Merek</th>
+                <th class="col-jumlah">Jumlah</th>
+                <th class="col-kondisi">Kondisi</th>
+                <th class="col-lokasi">Lokasi</th>
+                <th class="col-aksi">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tabelBodyPerangkat">
+              <!-- Di-render oleh JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- VIEW 2: GRID KARTU -->
+        <div class="inventory-grid" id="gridContainer" style="display: none;">
+          <!-- Di-render oleh JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- HALAMAN 3: TAMBAH PERANGKAT (DEDICATED FORM BERSIH) -->
+    <!-- =================================================================== -->
+    <section class="page-view" id="pageAdd">
+      <div class="container">
+        <div class="page-header" style="max-width: 680px; margin-left: auto; margin-right: auto;">
+          <div>
+            <h2 class="page-title">Tambah Perangkat Baru</h2>
+            <p class="page-desc">Masukkan informasi perangkat laboratorium ke dalam database inventaris</p>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnBatalHalamanTambah">
+            Kembali ke Data
+          </button>
+        </div>
+
+        <div class="form-page-card">
+          <div id="formPageAlert" class="form-error-alert" role="alert"></div>
+
+          <form id="formPagePerangkat">
+            <div class="form-grid">
+              <div class="form-group full-width">
+                <label for="pageInputNama" class="form-label">Nama Perangkat <span class="required">*</span></label>
+                <input type="text" id="pageInputNama" class="form-input" placeholder="Contoh: Router Mikrotik RB750Gr3" required />
+              </div>
+
+              <div class="form-group">
+                <label for="pageSelectKategori" class="form-label">Kategori <span class="required">*</span></label>
+                <select id="pageSelectKategori" class="form-select" required>
+                  <option value="" disabled selected>Pilih Kategori</option>
+                  <option value="Komputer">Komputer</option>
+                  <option value="Router">Router</option>
+                  <option value="Switch">Switch</option>
+                  <option value="Access Point">Access Point</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="pageInputMerek" class="form-label">Merek / Brand <span class="required">*</span></label>
+                <input type="text" id="pageInputMerek" class="form-input" placeholder="Contoh: Cisco, MikroTik, Lenovo" required />
+              </div>
+
+              <div class="form-group">
+                <label for="pageInputJumlah" class="form-label">Jumlah (Unit) <span class="required">*</span></label>
+                <input type="number" id="pageInputJumlah" class="form-input" min="1" value="1" required />
+              </div>
+
+              <div class="form-group">
+                <label for="pageSelectKondisi" class="form-label">Kondisi <span class="required">*</span></label>
+                <select id="pageSelectKondisi" class="form-select" required>
+                  <option value="Baik">Baik</option>
+                  <option value="Rusak">Rusak</option>
+                </select>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="pageInputLokasi" class="form-label">Lokasi Penempatan <span class="required">*</span></label>
+                <input type="text" id="pageInputLokasi" class="form-input" placeholder="Contoh: Rak Jaringan Lab TKJ 1, Ruang Server" required />
+              </div>
+            </div>
+
+            <div class="form-actions-footer">
+              <button type="reset" class="btn btn-secondary">Reset Input</button>
+              <button type="submit" class="btn btn-primary">Simpan ke Inventaris</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- HALAMAN 4: LAPORAN & EKSPOR -->
+    <!-- =================================================================== -->
+    <section class="page-view" id="pageReport">
+      <div class="container">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Laporan Inventaris Laboratorium</h2>
+            <p class="page-desc">Rekapitulasi data resmi untuk dokumentasi dan cetak laporan sekolah</p>
+          </div>
+        </div>
+
+        <div class="report-card">
+          <div class="report-actions-bar">
+            <div>
+              <span style="font-weight: 600; font-size: 0.95rem;">Dokumen Inventaris Laboratorium TKJ</span>
+              <p style="font-size: 0.775rem; color: var(--text-muted);">SMK Jurusan Teknik Komputer dan Jaringan</p>
+            </div>
+            <div style="display: flex; gap: 0.5rem;">
+              <button type="button" class="btn btn-secondary btn-sm" id="btnExportJson">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="12" x2="12" y1="15" y2="3"/>
+                </svg>
+                Export JSON
+              </button>
+              <button type="button" class="btn btn-primary btn-sm" id="btnPrintReport">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 6 2 18 2 18 9"/>
+                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                  <rect width="12" height="8" x="6" y="14"/>
+                </svg>
+                Cetak Laporan
+              </button>
+            </div>
+          </div>
+
+          <!-- Kotak Ringkasan Laporan -->
+          <div class="report-summary-boxes">
+            <div class="report-box">
+              <div class="report-box-title">Total Perangkat</div>
+              <div class="report-box-val" id="reportTotalItem">0 Item</div>
+            </div>
+            <div class="report-box">
+              <div class="report-box-title">Total Fisik Unit</div>
+              <div class="report-box-val" id="reportTotalUnit">0 Unit</div>
+            </div>
+            <div class="report-box">
+              <div class="report-box-title">Kondisi Baik / Rusak</div>
+              <div class="report-box-val" id="reportRasioKondisi">0 / 0</div>
+            </div>
+          </div>
+
+          <!-- Tabel Rekapitulasi Ringkas -->
+          <div class="table-wrapper">
+            <table class="inventory-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nama Perangkat</th>
+                  <th>Kategori</th>
+                  <th>Merek</th>
+                  <th style="text-align: center;">Jumlah</th>
+                  <th>Kondisi</th>
+                  <th>Lokasi</th>
+                </tr>
+              </thead>
+              <tbody id="reportTableBody">
+                <!-- Di-render oleh JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- MODAL EDIT PERANGKAT (UNTUK EDIT DATA YANG ADA) -->
+    <!-- =================================================================== -->
+    <div class="modal-overlay" id="modalEdit" role="dialog" aria-modal="true" aria-labelledby="modalEditJudul">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <h2 class="modal-title" id="modalEditJudul">Edit Data Perangkat</h2>
+          <button type="button" class="modal-close" id="btnTutupModalEdit" aria-label="Tutup modal edit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+        <form id="formEditPerangkat">
+          <div class="modal-body">
+            <div id="modalEditAlert" class="form-error-alert" role="alert"></div>
+
+            <div class="form-grid">
+              <div class="form-group full-width">
+                <label for="editNama" class="form-label">Nama Perangkat <span class="required">*</span></label>
+                <input type="text" id="editNama" class="form-input" required />
+              </div>
+
+              <div class="form-group">
+                <label for="editKategori" class="form-label">Kategori <span class="required">*</span></label>
+                <select id="editKategori" class="form-select" required>
+                  <option value="Komputer">Komputer</option>
+                  <option value="Router">Router</option>
+                  <option value="Switch">Switch</option>
+                  <option value="Access Point">Access Point</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="editMerek" class="form-label">Merek <span class="required">*</span></label>
+                <input type="text" id="editMerek" class="form-input" required />
+              </div>
+
+              <div class="form-group">
+                <label for="editJumlah" class="form-label">Jumlah (Unit) <span class="required">*</span></label>
+                <input type="number" id="editJumlah" class="form-input" min="1" required />
+              </div>
+
+              <div class="form-group">
+                <label for="editKondisi" class="form-label">Kondisi <span class="required">*</span></label>
+                <select id="editKondisi" class="form-select" required>
+                  <option value="Baik">Baik</option>
+                  <option value="Rusak">Rusak</option>
+                </select>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="editLokasi" class="form-label">Lokasi <span class="required">*</span></label>
+                <input type="text" id="editLokasi" class="form-input" required />
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-sm" id="btnBatalEdit">Batal</button>
+            <button type="submit" class="btn btn-primary btn-sm">Simpan Perubahan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODAL KONFIRMASI HAPUS -->
+    <div class="modal-overlay" id="modalHapus" role="dialog" aria-modal="true" aria-labelledby="modalHapusJudul">
+      <div class="modal-dialog" style="max-width: 420px;">
+        <div class="modal-header">
+          <h2 class="modal-title" id="modalHapusJudul">Konfirmasi Hapus</h2>
+          <button type="button" class="modal-close" id="btnTutupModalHapus" aria-label="Tutup dialog konfirmasi">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+            Apakah Anda yakin ingin menghapus perangkat ini dari inventaris?
+          </p>
+          <p style="font-size: 0.95rem; font-weight: 600; color: var(--text-main);" id="namaPerangkatHapus">
+            -
+          </p>
+          <p style="font-size: 0.775rem; color: #b91c1c; margin-top: 0.65rem;">
+            Data yang dihapus akan diperbarui pada localStorage secara permanen.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" id="btnBatalHapus">Batal</button>
+          <button type="button" class="btn btn-danger-solid btn-sm" id="btnKonfirmasiHapus">Hapus Data</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- WADAH TOAST NOTIFIKASI -->
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <!-- =================================================================== -->
+    <!-- BOTTOM NAVIGATION BAR (KHUSUS MOBILE: KEKINIAN & MUDAH DIJANGKAU) -->
+    <!-- =================================================================== -->
+    <nav class="mobile-bottom-nav" aria-label="Navigasi Bawah Smartphone">
+      <div class="bottom-nav-inner">
+        <button type="button" class="bottom-nav-btn active" data-nav="dashboard">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <span>Beranda</span>
+        </button>
+
+        <button type="button" class="bottom-nav-btn" data-nav="inventory">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="20" height="8" x="2" y="2" rx="2" ry="2"/>
+            <rect width="20" height="8" x="2" y="14" rx="2" ry="2"/>
+            <line x1="6" x2="6.01" y1="6" y2="6"/>
+            <line x1="6" x2="6.01" y1="18" y2="18"/>
+          </svg>
+          <span>Data Lab</span>
+        </button>
+
+        <button type="button" class="bottom-nav-btn" data-nav="add">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" x2="12" y1="8" y2="16"/>
+            <line x1="8" x2="16" y1="12" y2="12"/>
+          </svg>
+          <span>Tambah</span>
+        </button>
+
+        <button type="button" class="bottom-nav-btn" data-nav="report">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+          <span>Laporan</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- FOOTER RESMI -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <span>&copy; Proyek Akhir Praktik Kejuruan XII TKJ • Vanilla JavaScript, HTML5 & CSS3</span>
+        </div>
+        <div>
+          <button type="button" class="btn-link" id="btnResetData" title="Kembalikan data ke awal file JSON">
+            Reset Data ke Awal JSON
+          </button>
+        </div>
+      </div>
+    </footer>
+
+    <!-- SCRIPT JAVASCRIPT DASAR -->
+    <script src="/js/script.js"></script>
+  </body>
+</html>
