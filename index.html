@@ -9,7 +9,7 @@
     <meta property="og:description" content="Website inventaris perangkat laboratorium TKJ SMKN 2 Pekalongan. Proyek Akhir Web Design oleh Muhamad Zainurroyan (12 TKJ 1 / 19), Guru Pengampu: Pak Andi Darmayanto." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="stylesheet" href="/css/style.css" />
+        <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
 
@@ -390,6 +390,7 @@
                 <th class="col-merek">Merek</th>
                 <th class="col-jumlah">Jumlah</th>
                 <th class="col-kondisi">Kondisi</th>
+                <th class="col-ip">Alamat IP</th>
                 <th class="col-lokasi">Lokasi</th>
                 <th class="col-aksi">Aksi</th>
               </tr>
@@ -465,6 +466,11 @@
                 <label for="pageInputLokasi" class="form-label">Lokasi Penempatan <span class="required">*</span></label>
                 <input type="text" id="pageInputLokasi" class="form-input" placeholder="Contoh: Rak Jaringan Lab TKJ 1, Ruang Server" required />
               </div>
+
+              <div class="form-group full-width">
+                <label for="pageInputIp" class="form-label">Alamat IP / Spesifikasi Jaringan <span class="form-helper" style="font-weight: normal; color: var(--text-muted);">(Opsional untuk TKJ)</span></label>
+                <input type="text" id="pageInputIp" class="form-input" placeholder="Contoh: 192.168.1.1, 10.10.1.254, atau DHCP" />
+              </div>
             </div>
 
             <div class="form-actions-footer">
@@ -494,7 +500,7 @@
               <span style="font-weight: 600; font-size: 0.95rem;">Dokumen Inventaris Laboratorium TKJ</span>
               <p style="font-size: 0.775rem; color: var(--text-muted);">SMK Jurusan Teknik Komputer dan Jaringan</p>
             </div>
-            <div style="display: flex; gap: 0.5rem;">
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
               <button type="button" class="btn btn-secondary btn-sm" id="btnExportJson">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -502,6 +508,16 @@
                   <line x1="12" x2="12" y1="15" y2="3"/>
                 </svg>
                 Export JSON
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" id="btnExportCsv" title="Unduh data dalam format CSV untuk dibuka di Microsoft Excel">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="16" x2="8" y1="13" y2="13"/>
+                  <line x1="16" x2="8" y1="17" y2="17"/>
+                  <polyline points="10 9 9 9 8 9"/>
+                </svg>
+                Export Excel (CSV)
               </button>
               <button type="button" class="btn btn-primary btn-sm" id="btnPrintReport">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -541,6 +557,7 @@
                   <th>Merek</th>
                   <th style="text-align: center;">Jumlah</th>
                   <th>Kondisi</th>
+                  <th>Alamat IP</th>
                   <th>Lokasi</th>
                 </tr>
               </thead>
@@ -689,6 +706,11 @@
                 <label for="editLokasi" class="form-label">Lokasi <span class="required">*</span></label>
                 <input type="text" id="editLokasi" class="form-input" required />
               </div>
+
+              <div class="form-group full-width">
+                <label for="editIp" class="form-label">Alamat IP / Spesifikasi Jaringan</label>
+                <input type="text" id="editIp" class="form-input" placeholder="Contoh: 192.168.1.1, 10.10.1.254, atau DHCP" />
+              </div>
             </div>
           </div>
 
@@ -791,14 +813,13 @@
           <span>&copy; 2026 <strong>SMKN 2 PEKALONGAN</strong> • Dibuat oleh <strong>Muhamad Zainurroyan</strong> (12 TKJ 1 / Absen 19) • Guru Pengampu: <strong>Pak Andi Darmayanto</strong></span>
         </div>
         <div>
-          <button type="button" class="btn-link" id="btnResetData" title="Kembalikan data ke awal file JSON">
-            Reset Data ke Awal JSON
+          <button type="button" class="btn-link" id="btnResetData" title="Kosongkan seluruh data inventaris">
+            Kosongkan / Reset Data
           </button>
         </div>
       </div>
     </footer>
-
     <!-- SCRIPT JAVASCRIPT DASAR -->
-    <script src="/js/script.js"></script>
+    <script src="js/script.js"></script>
   </body>
 </html>

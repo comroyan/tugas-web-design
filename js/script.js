@@ -13,8 +13,11 @@
  */
 
 // 1. STATE GLOBAL APLIKASI
-const STORAGE_KEY = 'inventaris_tkj_data';
+const STORAGE_KEY = 'inventaris_tkj_v2';
 const JSON_URL = 'data/perangkat.json';
+
+// Data bawaan awal (kosong: inventaris dimulai dari 0 perangkat)
+const DATA_AWAL_FALLBACK = [];
 
 let daftarPerangkat = [];
 let idPerangkatDiedit = null;
@@ -84,6 +87,7 @@ const elPageInputMerek = document.getElementById('pageInputMerek');
 const elPageInputJumlah = document.getElementById('pageInputJumlah');
 const elPageSelectKondisi = document.getElementById('pageSelectKondisi');
 const elPageInputLokasi = document.getElementById('pageInputLokasi');
+const elPageInputIp = document.getElementById('pageInputIp');
 const elBtnBatalHalamanTambah = document.getElementById('btnBatalHalamanTambah');
 
 // Halaman Laporan
@@ -92,6 +96,7 @@ const elReportTotalUnit = document.getElementById('reportTotalUnit');
 const elReportRasioKondisi = document.getElementById('reportRasioKondisi');
 const elReportTableBody = document.getElementById('reportTableBody');
 const elBtnExportJson = document.getElementById('btnExportJson');
+const elBtnExportCsv = document.getElementById('btnExportCsv');
 const elBtnPrintReport = document.getElementById('btnPrintReport');
 const elBtnResetData = document.getElementById('btnResetData');
 
@@ -107,6 +112,7 @@ const elEditMerek = document.getElementById('editMerek');
 const elEditJumlah = document.getElementById('editJumlah');
 const elEditKondisi = document.getElementById('editKondisi');
 const elEditLokasi = document.getElementById('editLokasi');
+const elEditIp = document.getElementById('editIp');
 
 // Modal Hapus
 const elModalHapus = document.getElementById('modalHapus');
@@ -179,19 +185,23 @@ function navigasiHalaman(target) {
 async function loadData() {
   tampilkanLoading(true);
 
+  // Bersihkan data lama jika ada
+  if (localStorage.getItem('inventaris_tkj_data')) {
+    localStorage.removeItem('inventaris_tkj_data');
+  }
+
   const dataLokal = localStorage.getItem(STORAGE_KEY);
 
-  if (dataLokal) {
+  if (dataLokal !== null) {
     try {
       daftarPerangkat = JSON.parse(dataLokal);
       tampilkanLoading(false);
       updateStatistik();
       filterDanTampilkan();
       renderReportPage();
-      tampilkanToast('Data inventaris berhasil dimuat.', 'info');
       return;
     } catch (e) {
-      console.warn('Gagal membaca localStorage, memuat data awal JSON...');
+      console.warn('Gagal membaca localStorage, memuat file JSON...');
     }
   }
 
@@ -207,14 +217,14 @@ async function loadData() {
     updateStatistik();
     filterDanTampilkan();
     renderReportPage();
-    tampilkanToast('Data awal berhasil dimuat dari data/perangkat.json.', 'success');
   } catch (error) {
-    console.error('Error saat fetch JSON:', error);
+    console.warn('Mode offline atau file://, memuat data bawaan langsung:', error);
+    daftarPerangkat = [...DATA_AWAL_FALLBACK];
+    simpanLocalStorage();
     tampilkanLoading(false);
-    daftarPerangkat = [];
     updateStatistik();
     filterDanTampilkan();
-    tampilkanToast('Gagal memuat file JSON. Silakan tambah data manual.', 'error');
+    renderReportPage();
   }
 }
 
@@ -270,7 +280,9 @@ function updateStatistik() {
   elDashPersenKesiapan.textContent = `${persenBaik}%`;
   elDashProgressBar.style.width = `${persenBaik}%`;
 
-  if (persenBaik === 100) {
+  if (totalPerangkat === 0) {
+    elDashKesiapanNote.textContent = 'Belum ada data perangkat. Silakan klik "+ Tambah Perangkat" untuk mulai menginput data.';
+  } else if (persenBaik === 100) {
     elDashKesiapanNote.textContent = 'Semua perangkat dalam kondisi prima dan siap praktikum.';
   } else if (persenBaik >= 70) {
     elDashKesiapanNote.textContent = `${jumlahRusak} perangkat perlu servis sebelum sesi praktik berikutnya.`;
@@ -297,7 +309,10 @@ function filterDanTampilkan() {
   }
 
   const hasilFilter = daftarPerangkat.filter((item) => {
-    const cocokNama = keyword === '' || item.nama.toLowerCase().includes(keyword);
+    const cocokNama = keyword === '' || 
+      item.nama.toLowerCase().includes(keyword) || 
+      (item.ip && item.ip.toLowerCase().includes(keyword)) ||
+      (item.merek && item.merek.toLowerCase().includes(keyword));
     const cocokKategori = kategori === 'Semua' || item.kategori === kategori;
     const cocokKondisi = kondisi === 'Semua' || item.kondisi === kondisi;
     return cocokNama && cocokKategori && cocokKondisi;
@@ -351,6 +366,7 @@ function renderTable(dataTampil) {
     const tr = document.createElement('tr');
     const isBaik = item.kondisi === 'Baik';
     const badgeClass = isBaik ? 'badge-status baik' : 'badge-status rusak';
+    const ipTampil = item.ip && item.ip !== '-' ? item.ip : '-';
 
     tr.innerHTML = `
       <td class="col-id">#${item.id}</td>
@@ -363,6 +379,9 @@ function renderTable(dataTampil) {
           <span class="dot"></span>
           ${item.kondisi}
         </span>
+      </td>
+      <td class="col-ip">
+        <span style="font-family: var(--font-mono); font-size: 0.775rem; background-color: var(--bg-subtle); padding: 0.15rem 0.4rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">${escapeHtml(ipTampil)}</span>
       </td>
       <td class="col-lokasi">${escapeHtml(item.lokasi)}</td>
       <td class="col-aksi">
@@ -391,6 +410,7 @@ function renderGrid(dataTampil) {
 
     const isBaik = item.kondisi === 'Baik';
     const badgeClass = isBaik ? 'badge-status baik' : 'badge-status rusak';
+    const ipTampil = item.ip && item.ip !== '-' ? item.ip : '-';
 
     card.innerHTML = `
       <div>
@@ -411,7 +431,11 @@ function renderGrid(dataTampil) {
             <span class="device-meta-label">Kuantitas</span>
             <span class="device-meta-val">${Number(item.jumlah)} Unit</span>
           </div>
-          <div class="device-meta-item" style="grid-column: span 2; margin-top: 0.2rem;">
+          <div class="device-meta-item">
+            <span class="device-meta-label">Alamat IP</span>
+            <span class="device-meta-val" style="font-family: var(--font-mono); font-size: 0.75rem;">${escapeHtml(ipTampil)}</span>
+          </div>
+          <div class="device-meta-item">
             <span class="device-meta-label">Lokasi</span>
             <span class="device-meta-val">${escapeHtml(item.lokasi)}</span>
           </div>
@@ -469,6 +493,7 @@ function simpanFormPage(e) {
   const jumlah = parseInt(elPageInputJumlah.value, 10);
   const kondisi = elPageSelectKondisi.value;
   const lokasi = elPageInputLokasi.value.trim();
+  const ip = elPageInputIp ? (elPageInputIp.value.trim() || '-') : '-';
 
   if (!nama) {
     tampilkanErrorFormPage('Nama perangkat wajib diisi.');
@@ -509,7 +534,8 @@ function simpanFormPage(e) {
     merek,
     jumlah,
     kondisi,
-    lokasi
+    lokasi,
+    ip
   };
 
   daftarPerangkat.push(perangkatBaru);
@@ -550,6 +576,7 @@ function siapkanEditPerangkat(id) {
   elEditJumlah.value = target.jumlah;
   elEditKondisi.value = target.kondisi;
   elEditLokasi.value = target.lokasi;
+  if (elEditIp) elEditIp.value = target.ip && target.ip !== '-' ? target.ip : '';
 
   elModalEditAlert.classList.remove('show');
   bukaModal(elModalEdit);
@@ -565,6 +592,7 @@ function simpanFormEdit(e) {
   const jumlah = parseInt(elEditJumlah.value, 10);
   const kondisi = elEditKondisi.value;
   const lokasi = elEditLokasi.value.trim();
+  const ip = elEditIp ? (elEditIp.value.trim() || '-') : '-';
 
   if (!nama || !kategori || !merek || isNaN(jumlah) || jumlah < 1 || !lokasi) {
     elModalEditAlert.textContent = 'Harap isi seluruh field formulir dengan benar.';
@@ -581,7 +609,8 @@ function simpanFormEdit(e) {
       merek,
       jumlah,
       kondisi,
-      lokasi
+      lokasi,
+      ip
     };
 
     simpanLocalStorage();
@@ -648,6 +677,7 @@ function renderReportPage() {
       <td>${escapeHtml(item.merek)}</td>
       <td style="text-align: center; font-family: var(--font-mono);">${item.jumlah}</td>
       <td>${item.kondisi}</td>
+      <td style="font-family: var(--font-mono); font-size: 0.75rem;">${escapeHtml(item.ip || '-')}</td>
       <td>${escapeHtml(item.lokasi)}</td>
     `;
     elReportTableBody.appendChild(tr);
@@ -675,15 +705,52 @@ function eksporDataJson() {
   tampilkanToast('Data berhasil diekspor (JSON).', 'success');
 }
 
+function eksporDataCsv() {
+  if (daftarPerangkat.length === 0) {
+    tampilkanToast('Tidak ada data inventaris untuk diekspor ke Excel / CSV.', 'error');
+    return;
+  }
+
+  const headers = ['ID', 'Nama Perangkat', 'Kategori', 'Merek', 'Jumlah Unit', 'Kondisi', 'Alamat IP', 'Lokasi'];
+  const rows = daftarPerangkat.map((item) => [
+    item.id,
+    `"${(item.nama || '').replace(/"/g, '""')}"`,
+    `"${(item.kategori || '').replace(/"/g, '""')}"`,
+    `"${(item.merek || '').replace(/"/g, '""')}"`,
+    Number(item.jumlah) || 1,
+    `"${(item.kondisi || '').replace(/"/g, '""')}"`,
+    `"${(item.ip || '-').replace(/"/g, '""')}"`,
+    `"${(item.lokasi || '').replace(/"/g, '""')}"`
+  ]);
+
+  // Tambahkan UTF-8 BOM (\uFEFF) agar Microsoft Excel langsung membaca teks & format dengan rapi
+  const csvContent = '\uFEFF' + [headers.join(','), ...rows.map((r) => r.join(','))].join('\r\n');
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `laporan-inventaris-tkj-${new Date().toISOString().slice(0, 10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  tampilkanToast('Data berhasil diekspor ke format Excel (CSV).', 'success');
+}
+
 function cetakLaporan() {
   window.print();
 }
 
 async function resetKeDataBawaan() {
-  if (!confirm('Apakah Anda yakin ingin me-reset seluruh data inventaris ke data awal JSON?')) return;
+  if (!confirm('Apakah Anda yakin ingin mengosongkan / me-reset semua data inventaris?')) return;
   localStorage.removeItem(STORAGE_KEY);
-  await loadData();
-  tampilkanToast('Data berhasil dikembalikan ke data awal JSON.', 'info');
+  localStorage.removeItem('inventaris_tkj_data');
+  daftarPerangkat = [];
+  simpanLocalStorage();
+  updateStatistik();
+  filterDanTampilkan();
+  renderReportPage();
+  tampilkanToast('Semua data inventaris berhasil dikosongkan.', 'info');
 }
 
 // ============================================================================
@@ -808,6 +875,7 @@ function inisialisasiEvent() {
 
   // Export & Print & Reset
   if (elBtnExportJson) elBtnExportJson.addEventListener('click', eksporDataJson);
+  if (elBtnExportCsv) elBtnExportCsv.addEventListener('click', eksporDataCsv);
   if (elBtnPrintReport) elBtnPrintReport.addEventListener('click', cetakLaporan);
   if (elBtnResetData) elBtnResetData.addEventListener('click', resetKeDataBawaan);
 

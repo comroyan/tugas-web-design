@@ -744,6 +744,11 @@ body {
   min-width: 120px;
 }
 
+.col-ip {
+  min-width: 130px;
+  white-space: nowrap;
+}
+
 .col-aksi {
   width: 120px;
   text-align: right;
